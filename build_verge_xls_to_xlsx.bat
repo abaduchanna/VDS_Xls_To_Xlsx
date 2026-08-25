@@ -1,0 +1,89 @@
+@echo off
+setlocal enabledelayedexpansion
+title Build verge_xls_to_xlsx.spec
+
+set "SRCDIR=%~dp0"
+set "OUTDIR=%USERPROFILE%\Downloads\GitHub"
+
+echo.
+echo  ============================================================
+echo   Building: verge_xls_to_xlsx.spec
+echo  ============================================================
+echo.
+
+REM ── Check prerequisites ──
+python --version >nul 2>&1
+if errorlevel 1 (
+    echo    ERROR: Python not found in PATH.
+    pause
+    exit /b 1
+)
+python -m PyInstaller --version >nul 2>&1
+if errorlevel 1 (
+    echo    PyInstaller not found. Installing...
+    python -m pip install --upgrade pyinstaller
+)
+git --version >nul 2>&1
+if errorlevel 1 (
+    echo    ERROR: Git not found in PATH.
+    pause
+    exit /b 1
+)
+echo    Prerequisites OK
+echo.
+
+REM ── Redirect PyInstaller workpath to system TEMP ──
+REM   Avoids FileNotFoundError: base_library.zip when OneDrive
+REM   syncs or AV scans the build folder mid-build.
+set "WORKBASE=%TEMP%\pyi_build\verge_xls_to_xlsx"
+if exist "%WORKBASE%" rmdir /s /q "%WORKBASE%"
+mkdir "%WORKBASE%" 2>nul
+echo    Workpath: %WORKBASE%
+echo.
+
+REM ── Enter folder + clean ──
+pushd "%SRCDIR%"
+if exist "build" rmdir /s /q "build"
+if exist "dist"  rmdir /s /q "dist"
+if exist "__pycache__" rmdir /s /q "__pycache__"
+del /s /q *.pyc 2>nul
+
+REM ── Install deps ──
+if exist "requirements.txt" (
+    echo  Installing requirements...
+    python -m pip install -r requirements.txt --quiet 2>nul
+)
+
+REM ── Build ──
+echo  Building verge_xls_to_xlsx.spec...
+python -m PyInstaller "verge_xls_to_xlsx.spec" --noconfirm --clean --workpath "%WORKBASE%" 2>&1
+
+if errorlevel 1 (
+    echo    FAILED: verge_xls_to_xlsx.spec
+    popd
+    pause
+    exit /b 1
+)
+
+echo    SUCCESS: verge_xls_to_xlsx.spec
+
+REM ── Copy .exe to output ──
+set "EXENAME=verge_xls_to_xlsx.exe"
+if exist "dist\!EXENAME!" (
+    if not exist "%OUTDIR%" mkdir "%OUTDIR%"
+    copy /Y "dist\!EXENAME!" "%OUTDIR%\!EXENAME!" >nul
+    echo    Collected: %OUTDIR%\!EXENAME!
+) else (
+    echo    WARNING: dist\!EXENAME! not found
+)
+
+popd
+
+echo.
+echo  ============================================================
+echo   Done: verge_xls_to_xlsx.spec
+echo  ============================================================
+echo.
+pause
+endlocal
+exit /b 0
