@@ -146,15 +146,15 @@ class Converter:
 
 # ── GUI ────────────────────────────────────────────────────────────────────────
 # Brand palette kept in sync with Verge_Inventory_Aging_Processor.pyw
-NAVY  = "#2A3641"
+NAVY  = "#0B0E13"
 EMBEDDED_LOGO_B64 = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "assets", "embedded_logo_b64.txt"), "r").read().strip() if not getattr(sys, "frozen", False) else open(os.path.join(getattr(sys, "_MEIPASS", "."), "assets", "embedded_logo_b64.txt"), "r").read().strip()
 EMBEDDED_ICON_B64 = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "assets", "embedded_icon_b64.txt"), "r").read().strip() if not getattr(sys, "frozen", False) else open(os.path.join(getattr(sys, "_MEIPASS", "."), "assets", "embedded_icon_b64.txt"), "r").read().strip()
 
-RED   = "#6E8595"
+RED   = "#2C5FE3"
 WHITE = "#ffffff"
-LIGHT = "#E6E7E8"
-LOG_BG   = "#10182e"
-LOG_FG   = "#a8d8ff"
+LIGHT = "#171A1F"
+LOG_BG   = "#10141B"
+LOG_FG   = "#C9D1DC"
 
 ICON_ICO_NAME = "verge_icon.ico"
 LOGO_PNG_NAME = "Verge_Logo.png"
@@ -285,12 +285,12 @@ class App:
         s.map("Run.TButton",background=[("active","#c01820"),("disabled","#aaa")])
         s.configure("Browse.TButton",background=NAVY,foreground=WHITE,
                     font=("Calibri",10),padding=(10,6),borderwidth=0)
-        s.map("Browse.TButton",background=[("active","#1a2550")])
-        s.configure("Cancel.TButton",background="#1a2550",foreground=WHITE,
+        s.map("Browse.TButton",background=[("active","#171A1F")])
+        s.configure("Cancel.TButton",background="#171A1F",foreground=WHITE,
                     font=("Calibri",10),padding=(10,6),borderwidth=0)
-        s.map("Cancel.TButton",background=[("active","#2a3560")])
+        s.map("Cancel.TButton",background=[("active","#2A2C31")])
         s.configure("Accent.Horizontal.TProgressbar",
-                    troughcolor="#dde6f0",background=RED,borderwidth=0)
+                    troughcolor="#1E2228",background=RED,borderwidth=0)
 
 
     def _extract_embedded(self, b64, filename):
@@ -365,9 +365,9 @@ class App:
         fr.columnconfigure(0,weight=1)
         self.folder=tk.StringVar()
         tk.Entry(fr,textvariable=self.folder,font=("Calibri",9),
-                 relief="flat",bg="#e8eff8",fg=NAVY,
-                 readonlybackground="#e8eff8",
-                 highlightbackground="#b0c4de",highlightthickness=1
+                 relief="flat",bg="#1E2228",fg="#F5F7FA",
+                 readonlybackground="#1E2228",
+                 highlightbackground="#262B33",highlightthickness=1
                  ).grid(row=0,column=0,sticky="ew",ipady=5,padx=(0,8))
         ttk.Button(fr,text="Browse",style="Browse.TButton",
                    command=self._browse).grid(row=0,column=1)
@@ -381,7 +381,7 @@ class App:
                         ("Overwrite existing .xlsx",self.overwrite),
                         ("Delete original after converting",self.delete)]:
             tk.Checkbutton(opt,text=txt,variable=var,font=("Calibri",10),
-                           fg=NAVY,bg=LIGHT,selectcolor=WHITE,
+                           fg="#F5F7FA",bg=LIGHT,selectcolor=WHITE,
                            activebackground=LIGHT,activeforeground=NAVY
                            ).pack(side="left",padx=(0,16))
 
@@ -399,7 +399,7 @@ class App:
 
         # log
         tk.Label(body,text="Activity Log",font=("Calibri",9,"bold"),
-                 fg=NAVY,bg=LIGHT).pack(anchor="w")
+                 fg="#F5F7FA",bg=LIGHT).pack(anchor="w")
         self.log_w=scrolledtext.ScrolledText(body,font=("Consolas",8),
                     bg=LOG_BG,fg=LOG_FG,relief="flat",wrap="word")
         self.log_w.pack(fill="both",expand=True)
@@ -410,7 +410,7 @@ class App:
     def _copyright_bar(self):
         bar=tk.Frame(self.root,bg=NAVY,height=26)
         bar.pack(fill="x",side="bottom"); bar.pack_propagate(False)
-        tk.Label(bar,text=COPYRIGHT_TEXT,bg=NAVY,fg="#9d9db8",
+        tk.Label(bar,text=COPYRIGHT_TEXT,bg=NAVY,fg="#8A93A0",
                  font=("Calibri",8)).pack(pady=4)
 
     def _browse(self):
