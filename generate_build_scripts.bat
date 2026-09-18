@@ -2,7 +2,7 @@
 setlocal enabledelayedexpansion
 REM ==========================================================================
 REM  Generate Build Scripts — Creates build_*.bat for all repos
-REM  Developed by Abad Umair Channa
+REM  Developed by www.3SVerse.com
 REM
 REM  Run this ONCE. It creates a folder of build scripts that you can
 REM  double-click to build any app's .exe locally.

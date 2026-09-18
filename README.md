@@ -1,6 +1,5 @@
-# verge-xls-to-xlsx
+# Legacy Excel Converter (Verge)
 
-Standalone Verge Desk Solutions Tkinter tool: `verge_xls_to_xlsx.pyw`.
-Builds a Windows EXE automatically via GitHub Actions on every push to `main`
-(uploaded directly to the repo's Releases page — no Actions storage used),
-and via CircleCI once the repo is connected at circleci.com.
+Verge Desk Solutions edition: batch-convert legacy
+`.xls / .xlsm / .xlt / .xlsb` files to `.xlsx` with real Excel (COM).
+Windows EXE via GitHub Actions on push.
