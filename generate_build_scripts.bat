@@ -52,8 +52,8 @@ call :WRITE vidapay-transfer-bot VidaPay_Transfer_Bot VidaPay_Transfer_Bot
 
 REM ── VDS repos ──
 call :WRITE VDS_Xls_To_Xlsx VDS_Xls_To_Xlsx VDS_Xls_To_Xlsx
-call :WRITE VDS_Rebate_Tools verge_VDS_Rebate_Tools verge_VDS_Rebate_Tools
-call :WRITE VDS_UPS_Tracking_Checker verge_ups_tracking_checker verge_ups_tracking_checker
+call :WRITE VDS_Rebate_Tools VDS_Rebate_Tools VDS_Rebate_Tools
+call :WRITE VDS_UPS_Tracking_Checker VDS_UPS_Tracking_Checker VDS_UPS_Tracking_Checker
 
 echo.
 echo  ============================================================
