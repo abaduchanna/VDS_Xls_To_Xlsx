@@ -1,20 +1,20 @@
 @echo off
 setlocal enabledelayedexpansion
-title Download Verge Repos
+title Download VDS Repos
 
 set "BASEDIR=%USERPROFILE%\Downloads\GitHub\_src"
 if not exist "%BASEDIR%" mkdir "%BASEDIR%"
 
 echo.
 echo  ============================================================
-echo   Downloading Verge Desk Solutions Repositories
+echo   Downloading VDS Desk Solutions Repositories
 echo  ============================================================
 echo.
 echo    Target: %BASEDIR%
 echo.
 
-REM ── Verge repos ──
-set REPOS_VERGE=verge-xls-to-xlsx verge-rebate-tools verge-ups-tracking-checker
+REM ── VDS repos ──
+set REPOS_VERGE=VDS_Xls_To_Xlsx VDS_Rebate_Tools VDS_UPS_Tracking_Checker
 
 set SUCCESS=0
 set FAIL=0
@@ -51,7 +51,7 @@ echo.
 if %FAIL% gtr 0 (
     echo  Some repos failed to download. Check the output above.
 ) else (
-    echo  All Verge repos downloaded successfully!
+    echo  All VDS repos downloaded successfully!
 )
 
 echo.

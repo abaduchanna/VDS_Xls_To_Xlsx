@@ -3,9 +3,9 @@ requires = ["setuptools>=68.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "verge-xls-to-xlsx"
+name = "VDS_Xls_To_Xlsx"
 version = "1.0.0"
-description = "Verge Legacy Excel Converter"
+description = "VDS Legacy Excel Converter"
 requires-python = ">=3.11"
 authors = [
     { name = "Abad Umair Channa" }

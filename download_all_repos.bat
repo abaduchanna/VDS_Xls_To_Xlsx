@@ -20,8 +20,8 @@ set REPOS_GFH=gfh-accessories-order-history-scraper gfh-inventory-aging-processo
 REM  VidaPay repos
 set REPOS_VIDAPAY=vidapay-extractor vidapay-gfh vidapay-ordering vidapay-transfer-bot
 
-REM  Verge repos
-set REPOS_VERGE=verge-xls-to-xlsx verge-rebate-tools verge-ups-tracking-checker
+REM  VDS repos
+set REPOS_VERGE=VDS_Xls_To_Xlsx VDS_Rebate_Tools VDS_UPS_Tracking_Checker
 
 set SUCCESS=0
 set FAIL=0
@@ -68,7 +68,7 @@ for %%R in (%REPOS_VIDAPAY%) do (
 )
 
 echo.
-echo  ── Verge Repos ────────────────────────────────────────────
+echo  ── VDS Repos ────────────────────────────────────────────
 for %%R in (%REPOS_VERGE%) do (
     echo.
     echo    Cloning: %%R

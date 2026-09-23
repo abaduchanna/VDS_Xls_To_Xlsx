@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Verge Legacy Excel Converter  (one-time batch tool)
+VDS Legacy Excel Converter  (one-time batch tool)
 =================================================
 Pick a folder → converts every legacy .xls (and .xlsm/.xlt/.xlsb) file inside it
 to modern .xlsx, using real Excel so formatting, formulas and data are preserved.
@@ -145,7 +145,7 @@ class Converter:
 
 
 # ── GUI ────────────────────────────────────────────────────────────────────────
-# Brand palette kept in sync with Verge_Inventory_Aging_Processor.pyw
+# Brand palette kept in sync with VDS_Inventory_Aging_Processor.pyw
 NAVY  = "#0B0E13"
 EMBEDDED_LOGO_B64 = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "assets", "embedded_logo_b64.txt"), "r").read().strip() if not getattr(sys, "frozen", False) else open(os.path.join(getattr(sys, "_MEIPASS", "."), "assets", "embedded_logo_b64.txt"), "r").read().strip()
 EMBEDDED_ICON_B64 = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "assets", "embedded_icon_b64.txt"), "r").read().strip() if not getattr(sys, "frozen", False) else open(os.path.join(getattr(sys, "_MEIPASS", "."), "assets", "embedded_icon_b64.txt"), "r").read().strip()
@@ -156,8 +156,8 @@ LIGHT = "#171A1F"
 LOG_BG   = "#10141B"
 LOG_FG   = "#C9D1DC"
 
-ICON_ICO_NAME = "verge_icon.ico"
-LOGO_PNG_NAME = "Verge_Logo.png"
+ICON_ICO_NAME = "VDS_icon.ico"
+LOGO_PNG_NAME = "VDS_Logo.png"
 COPYRIGHT_TEXT = f"Developed by www.3SVerse.com | Copyright © {date.today().year} | All rights reserved."
 ICON_ICO_B64 = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "assets", "icon_ico_b64.txt"), "r").read().strip() if not getattr(sys, "frozen", False) else open(os.path.join(getattr(sys, "_MEIPASS", "."), "assets", "icon_ico_b64.txt"), "r").read().strip()
 
@@ -199,7 +199,7 @@ def _set_window_icon(root):
     # 1. Try sys._MEIPASS (PyInstaller onefile extraction dir)
     meipass = getattr(sys, "_MEIPASS", None)
     if meipass:
-        ico_path = os.path.join(meipass, "verge_icon.ico")
+        ico_path = os.path.join(meipass, "VDS_icon.ico")
         if os.path.exists(ico_path):
             try:
                 root.iconbitmap(default=ico_path)
@@ -213,7 +213,7 @@ def _set_window_icon(root):
         base_dir = os.path.dirname(sys.executable)
     else:
         base_dir = os.path.dirname(os.path.abspath(__file__))
-    ico_path = os.path.join(base_dir, "verge_icon.ico")
+    ico_path = os.path.join(base_dir, "VDS_icon.ico")
     if os.path.exists(ico_path):
         try:
             root.iconbitmap(default=ico_path)
@@ -226,7 +226,7 @@ def _set_window_icon(root):
     try:
         data = base64.b64decode(EMBEDDED_ICON_B64.strip())
         tmp_dir = os.environ.get("TEMP", tempfile.gettempdir())
-        ico_path = os.path.join(tmp_dir, "verge_app_icon.ico")
+        ico_path = os.path.join(tmp_dir, "VDS_app_icon.ico")
         with open(ico_path, "wb") as f:
             f.write(data)
         root.iconbitmap(default=ico_path)
@@ -239,7 +239,7 @@ def _set_window_icon(root):
 class App:
     def __init__(self, root):
         self.root=root; self._q=queue.Queue(); self._busy=False
-        root.title("Verge Desk Solutions - Legacy Excel Converter")
+        root.title("VDS Desk Solutions - Legacy Excel Converter")
         # Dynamic screen resolution support: size to 90% of the screen and
         # center it (DPI-aware), then stay a normal resizable top-level so
         # Windows Snap (50% left/right, corners, Win+arrow) keeps working.
@@ -249,7 +249,7 @@ class App:
         _set_window_icon(root)
 
         self._logo_img=None
-        self.theme_manager = ThemeManager("Verge Legacy Excel Converter", app_name="verge-xls-to-xlsx")
+        self.theme_manager = ThemeManager("VDS Legacy Excel Converter", app_name="VDS_Xls_To_Xlsx")
         self._styles(); self._header(); self._body(); self._copyright_bar(); self._poll()
         apply_theme_to_window(self.root, self.theme_manager)
 
@@ -321,14 +321,14 @@ class App:
             pass
     def _header(self):
         """Header using FixedHeaderManager."""
-        self.header_mgr = FixedHeaderManager(self.root, title="Verge Legacy Excel Converter")
+        self.header_mgr = FixedHeaderManager(self.root, title="VDS Legacy Excel Converter")
         self.header_mgr.add_theme_toggle(self.theme_manager, callback=self._apply_theme)
         # FixedHeaderManager now tags ALL its own widgets with _tag="header"
         # in __init__/add_theme_toggle/add_copyright, so no manual tagging needed.
         try:
             _lp = _resource_path(LOGO_PNG_NAME) if "_resource_path" in dir() else os.path.join(os.path.dirname(os.path.abspath(__file__)), LOGO_PNG_NAME)
             if os.path.exists(_lp):
-                self.header_mgr.set_logo(logo_path=_lp, text="Verge")
+                self.header_mgr.set_logo(logo_path=_lp, text="VDS")
         except Exception:
             pass
 
@@ -497,7 +497,7 @@ def main():
     # Must be before tk.Tk() or Windows ignores it and shows the generic icon
     try:
         import ctypes
-        ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID("VergeDesk.LegacyExcelConverter")
+        ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID("VDSDesk.LegacyExcelConverter")
     except Exception:
         pass
     root=tk.Tk(); App(root); root.mainloop()

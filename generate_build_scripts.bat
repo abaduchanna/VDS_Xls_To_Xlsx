@@ -25,11 +25,11 @@ echo.
 set COUNT=0
 
 REM ── GFH repos ──
-call :WRITE gfh-accessories-order-history-scraper gfh_accessories_order_history_scraper gfh_accessories_order_history_scraper
+call :WRITE gfh-accessories-order-history-scraper GFH_Accessories_Order_History_Scraper GFH_Accessories_Order_History_Scraper
 call :WRITE gfh-inventory-aging-processor GFH_Inventory_Aging_Processor GFH_Inventory_Aging_Processor
-call :WRITE gfh-rebate-tools gfh_rebate_tools gfh_rebate_tools
-call :WRITE gfh-ups-tracking-checker gfh_ups_tracking_checker gfh_ups_tracking_checker
-call :WRITE gfh-xls-to-xlsx gfh_xls_to_xlsx gfh_xls_to_xlsx
+call :WRITE gfh-rebate-tools GFH_Rebate_Tools GFH_Rebate_Tools
+call :WRITE gfh-ups-tracking-checker GFH_UPS_Tracking_Checker GFH_UPS_Tracking_Checker
+call :WRITE gfh-xls-to-xlsx gfh_VDS_Xls_To_Xlsx gfh_VDS_Xls_To_Xlsx
 
 REM ── VidaPay repos ──
 call :WRITE vidapay-extractor VidaPay_Incentive_Extractor_FULL VidaPay_Incentive_Extractor_FULL
@@ -50,10 +50,10 @@ call :WRITE vidapay-ordering VidaPay_Device_Ordering_TRIAL_MULTIBROWSER VidaPay_
 call :WRITE vidapay-ordering VidaPay_Device_Ordering_TRIAL_NOCLONE VidaPay_Device_Ordering_TRIAL_NOCLONE
 call :WRITE vidapay-transfer-bot VidaPay_Transfer_Bot VidaPay_Transfer_Bot
 
-REM ── Verge repos ──
-call :WRITE verge-xls-to-xlsx verge_xls_to_xlsx verge_xls_to_xlsx
-call :WRITE verge-rebate-tools verge_rebate_tools verge_rebate_tools
-call :WRITE verge-ups-tracking-checker verge_ups_tracking_checker verge_ups_tracking_checker
+REM ── VDS repos ──
+call :WRITE VDS_Xls_To_Xlsx VDS_Xls_To_Xlsx VDS_Xls_To_Xlsx
+call :WRITE VDS_Rebate_Tools verge_VDS_Rebate_Tools verge_VDS_Rebate_Tools
+call :WRITE VDS_UPS_Tracking_Checker verge_ups_tracking_checker verge_ups_tracking_checker
 
 echo.
 echo  ============================================================

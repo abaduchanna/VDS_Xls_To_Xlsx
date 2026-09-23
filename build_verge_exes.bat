@@ -1,6 +1,6 @@
 @echo off
 setlocal enabledelayedexpansion
-title Build All Verge EXEs
+title Build All VDS EXEs
 
 set "BASEDIR=%USERPROFILE%\Downloads\GitHub\_src"
 set "OUTDIR=%USERPROFILE%\Downloads\GitHub"
@@ -9,7 +9,7 @@ if not exist "%OUTDIR%" mkdir "%OUTDIR%"
 
 echo.
 echo  ============================================================
-echo   Build All Verge Desk Solutions EXEs
+echo   Build All VDS Desk Solutions EXEs
 echo  ============================================================
 echo.
 echo    Source:  %BASEDIR%
@@ -48,18 +48,18 @@ if errorlevel 1 (
 echo    Prerequisites OK
 echo.
 
-REM ── Verge repos and their spec files ──
-set REPO_1=verge-xls-to-xlsx
-set SPEC_1=verge_xls_to_xlsx.spec
-set EXE_1=verge_xls_to_xlsx.exe
+REM ── VDS repos and their spec files ──
+set REPO_1=VDS_Xls_To_Xlsx
+set SPEC_1=VDS_Xls_To_Xlsx.spec
+set EXE_1=VDS_Xls_To_Xlsx.exe
 
-set REPO_2=verge-rebate-tools
-set SPEC_2=rebate_tools.spec
-set EXE_2=rebate_tools.exe
+set REPO_2=VDS_Rebate_Tools
+set SPEC_2=VDS_Rebate_Tools.spec
+set EXE_2=VDS_Rebate_Tools.exe
 
-set REPO_3=verge-ups-tracking-checker
-set SPEC_3=UPS_tracking_checker.spec
-set EXE_3=UPS_tracking_checker.exe
+set REPO_3=VDS_UPS_Tracking_Checker
+set SPEC_3=VDS_UPS_Tracking_Checker.spec
+set EXE_3=VDS_UPS_Tracking_Checker.exe
 
 set SUCCESS=0
 set FAIL=0

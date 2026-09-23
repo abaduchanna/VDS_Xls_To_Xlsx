@@ -1,13 +1,13 @@
 @echo off
 setlocal enabledelayedexpansion
-title Build verge_xls_to_xlsx.spec
+title Build VDS_Xls_To_Xlsx.spec
 
 set "SRCDIR=%~dp0"
 set "OUTDIR=%USERPROFILE%\Downloads\GitHub"
 
 echo.
 echo  ============================================================
-echo   Building: verge_xls_to_xlsx.spec
+echo   Building: VDS_Xls_To_Xlsx.spec
 echo  ============================================================
 echo.
 
@@ -46,7 +46,7 @@ echo.
 REM ── Redirect PyInstaller workpath to system TEMP ──
 REM   Avoids FileNotFoundError: base_library.zip when OneDrive
 REM   syncs or AV scans the build folder mid-build.
-set "WORKBASE=%TEMP%\pyi_build\verge_xls_to_xlsx"
+set "WORKBASE=%TEMP%\pyi_build\VDS_Xls_To_Xlsx"
 if exist "%WORKBASE%" rmdir /s /q "%WORKBASE%"
 mkdir "%WORKBASE%" 2>nul
 echo    Workpath: %WORKBASE%
@@ -66,20 +66,20 @@ if exist "requirements.txt" (
 )
 
 REM ── Build ──
-echo  Building verge_xls_to_xlsx.spec...
-python -m PyInstaller "verge_xls_to_xlsx.spec" --noconfirm --clean --workpath "%WORKBASE%" 2>&1
+echo  Building VDS_Xls_To_Xlsx.spec...
+python -m PyInstaller "VDS_Xls_To_Xlsx.spec" --noconfirm --clean --workpath "%WORKBASE%" 2>&1
 
 if errorlevel 1 (
-    echo    FAILED: verge_xls_to_xlsx.spec
+    echo    FAILED: VDS_Xls_To_Xlsx.spec
     popd
     pause
     exit /b 1
 )
 
-echo    SUCCESS: verge_xls_to_xlsx.spec
+echo    SUCCESS: VDS_Xls_To_Xlsx.spec
 
 REM ── Copy .exe to output ──
-set "EXENAME=verge_xls_to_xlsx.exe"
+set "EXENAME=VDS_Xls_To_Xlsx.exe"
 if exist "dist\!EXENAME!" (
     if not exist "%OUTDIR%" mkdir "%OUTDIR%"
     copy /Y "dist\!EXENAME!" "%OUTDIR%\!EXENAME!" >nul
@@ -92,7 +92,7 @@ popd
 
 echo.
 echo  ============================================================
-echo   Done: verge_xls_to_xlsx.spec
+echo   Done: VDS_Xls_To_Xlsx.spec
 echo  ============================================================
 echo.
 pause
