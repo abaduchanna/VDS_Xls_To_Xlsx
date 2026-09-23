@@ -21,7 +21,7 @@ REM  VidaPay repos
 set REPOS_VIDAPAY=vidapay-extractor vidapay-gfh vidapay-ordering vidapay-transfer-bot
 
 REM  VDS repos
-set REPOS_VERGE=VDS_Xls_To_Xlsx VDS_Rebate_Tools VDS_UPS_Tracking_Checker
+set REPOS_VDS=VDS_Xls_To_Xlsx VDS_Rebate_Tools VDS_UPS_Tracking_Checker
 
 set SUCCESS=0
 set FAIL=0
@@ -69,7 +69,7 @@ for %%R in (%REPOS_VIDAPAY%) do (
 
 echo.
 echo  ── VDS Repos ────────────────────────────────────────────
-for %%R in (%REPOS_VERGE%) do (
+for %%R in (%REPOS_VDS%) do (
     echo.
     echo    Cloning: %%R
     if exist "%BASEDIR%\%%R" (
