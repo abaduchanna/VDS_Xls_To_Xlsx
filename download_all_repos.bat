@@ -18,7 +18,7 @@ REM  GFH repos
 set REPOS_GFH=gfh-accessories-order-history-scraper gfh-inventory-aging-processor gfh-rebate-tools gfh-ups-tracking-checker gfh-xls-to-xlsx
 
 REM  VidaPay repos
-set REPOS_VIDAPAY=vidapay-extractor vidapay-gfh vidapay-ordering vidapay-transfer-bot
+set REPOS_VIDAPAY=VidaPay_Incentive_Extractor vidapay-gfh VidaPay_Device_Ordering vidapay-transfer-bot
 
 REM  VDS repos
 set REPOS_VDS=VDS_Xls_To_Xlsx VDS_Rebate_Tools VDS_UPS_Tracking_Checker
