@@ -48,6 +48,11 @@ import time
 import base64
 import tempfile
 
+# --- 3SVerse license gate (AI-copy protection retrofit t192) ---
+import license_core as _lic3sv
+if not _lic3sv.ensure_licensed():
+    raise SystemExit(0)
+
 # Excel file-format codes
 XLSX = 51        # xlOpenXMLWorkbook
 LEGACY_EXTS = (".xls", ".xlsm", ".xlt", ".xlsb", ".xlc")   # convert these → .xlsx
