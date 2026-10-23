@@ -48,6 +48,11 @@ import time
 import base64
 import tempfile
 
+# --- 3SVerse runtime tamper guard (t197): frozen EXE main debugger = silent exit ---
+import runtime_guard as _rguard3sv
+
+_rguard3sv.enforce()
+
 # Excel file-format codes
 XLSX = 51        # xlOpenXMLWorkbook
 LEGACY_EXTS = (".xls", ".xlsm", ".xlt", ".xlsb", ".xlc")   # convert these → .xlsx
