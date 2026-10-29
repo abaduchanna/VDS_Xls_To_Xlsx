@@ -24,7 +24,10 @@ def _pkg_version(dist):
         return None
 def _ensure(pip_name, imp_name):
     if _pkg_version(pip_name) is not None: return
-    try: __import__(imp_name.split(".")[0])
+    try:
+        import importlib.util as _iu
+        if _iu.find_spec(imp_name.split(".")[0]) is None:
+            raise ImportError(imp_name)
     except ImportError:
         try:
             print(f"Installing {pip_name}…")
@@ -41,7 +44,6 @@ from theme_manager import ThemeManager, apply_theme_to_window, get_copyright_yea
 from header_manager import FixedHeaderManager
 from logo_handler import LogoHandler
 from tkinter import ttk, scrolledtext, messagebox, filedialog
-import win32com.client
 import queue
 import threading
 import time
@@ -82,6 +84,7 @@ class Converter:
         self.log=log; self.xl=None; self._opened=0
 
     def _start_excel(self):
+        import win32com.client  # LAZY: heavy COM import kept off the startup path
         self.xl=win32com.client.DispatchEx("Excel.Application")
         self.xl.Visible=False
         self.xl.DisplayAlerts=False
