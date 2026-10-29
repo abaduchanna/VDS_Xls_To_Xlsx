@@ -529,7 +529,19 @@ def main():
         ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID("VDSDesk.LegacyExcelConverter")
     except Exception:
         pass
-    root=tk.Tk(); App(root); root.mainloop()
+    root=tk.Tk(); App(root); _close_pyi_splash(); root.mainloop()
+
+def _close_pyi_splash():
+    """Close the PyInstaller splash screen (frozen onefile builds only).
+
+    Called once the main window is fully built and shown; harmless no-op
+    in dev runs (pyi_splash only exists inside PyInstaller builds)."""
+    try:
+        import pyi_splash  # type: ignore
+        pyi_splash.close()
+    except Exception:
+        pass
+
 
 if __name__=="__main__":
     main()
