@@ -244,6 +244,66 @@ def _set_window_icon(root):
         pass
 
 
+def _maximize_window(window):
+    try:
+        if window.winfo_exists():
+            window.state("zoomed")
+    except Exception:
+        try:
+            window.attributes("-zoomed", True)
+        except Exception:
+            pass
+
+
+def _show_startup_splash(root, app_factory, app_title):
+    """Show a short, branded VDS launch screen before building the main UI."""
+    width, height = 500, 220
+    root.overrideredirect(True)
+    root.configure(bg=NAVY)
+    root.resizable(False, False)
+    x = max(0, (root.winfo_screenwidth() - width) // 2)
+    y = max(0, (root.winfo_screenheight() - height) // 2)
+    root.geometry(f"{width}x{height}+{x}+{y}")
+    panel = tk.Frame(root, bg=NAVY, padx=28, pady=22)
+    panel.pack(fill="both", expand=True)
+    try:
+        logo = tk.PhotoImage(file=_resource_path(LOGO_PNG_NAME))
+        logo_label = tk.Label(panel, image=logo, bg=NAVY)
+        logo_label.image = logo
+        logo_label.pack(pady=(0, 12))
+    except Exception:
+        tk.Label(panel, text="VDS", fg="white", bg=NAVY,
+                 font=("Segoe UI", 24, "bold")).pack(pady=(0, 12))
+    tk.Label(panel, text=app_title, fg="white", bg=NAVY,
+             font=("Segoe UI", 14, "bold")).pack()
+    tk.Label(panel, text="Preparing your workspace…", fg="#C9D1DC", bg=NAVY,
+             font=("Segoe UI", 10)).pack(pady=(4, 12))
+    style = ttk.Style(root)
+    style.theme_use("clam")
+    style.configure("VDS.Splash.Horizontal.TProgressbar",
+                    troughcolor="#222831", background=RED, borderwidth=0)
+    progress = ttk.Progressbar(panel, mode="indeterminate", length=390,
+                               style="VDS.Splash.Horizontal.TProgressbar")
+    progress.pack(fill="x")
+    progress.start(12)
+
+    def launch_app():
+        try:
+            progress.stop()
+            panel.destroy()
+            root.overrideredirect(False)
+            app_factory(root)
+            root.after_idle(lambda: _maximize_window(root))
+        except Exception as exc:
+            root.overrideredirect(False)
+            try:
+                messagebox.showerror("VDS startup failed", str(exc), parent=root)
+            finally:
+                root.destroy()
+
+    root.after(240, launch_app)
+
+
 class App:
     def __init__(self, root):
         self.root=root; self._q=queue.Queue(); self._busy=False
@@ -390,7 +450,7 @@ class App:
         fr=tk.Frame(body,bg=LIGHT); fr.pack(fill="x",pady=(0,14))
         fr.columnconfigure(0,weight=1)
         self.folder=tk.StringVar()
-        tk.Entry(fr,textvariable=self.folder,font=("Calibri",9),
+        tk.Entry(fr,textvariable=self.folder,font=("Segoe UI",10),
                  relief="flat",bg="#1E2228",fg="#F5F7FA",
                  readonlybackground="#1E2228",
                  highlightbackground="#262B33",highlightthickness=1
@@ -406,17 +466,17 @@ class App:
         for txt,var in [("Include subfolders",self.recurse),
                         ("Overwrite existing .xlsx",self.overwrite),
                         ("Delete original after converting",self.delete)]:
-            tk.Checkbutton(opt,text=txt,variable=var,font=("Calibri",10),
+            tk.Checkbutton(opt,text=txt,variable=var,font=("Segoe UI",10),
                            fg="#F5F7FA",bg=LIGHT,selectcolor=WHITE,
                            activebackground=LIGHT,activeforeground=NAVY
                            ).pack(side="left",padx=(0,16))
 
         # action buttons
         act=tk.Frame(body,bg=LIGHT); act.pack(fill="x",pady=(0,12))
-        self.run_btn=ttk.Button(act,text="▶  Convert",style="Run.TButton",
+        self.run_btn=ttk.Button(act,text="Convert files",style="Run.TButton",
                                 command=self._start)
         self.run_btn.pack(side="left")
-        self.cancel_btn=ttk.Button(act,text="⏹  Cancel",style="Cancel.TButton",
+        self.cancel_btn=ttk.Button(act,text="Cancel",style="Cancel.TButton",
                                    command=lambda:_CANCEL.set(),state="disabled")
         self.cancel_btn.pack(side="left",padx=8)
         self.pv=ttk.Progressbar(act,mode="determinate",
@@ -424,9 +484,9 @@ class App:
         self.pv.pack(side="left",fill="x",expand=True,padx=8)
 
         # log
-        tk.Label(body,text="Activity Log",font=("Calibri",9,"bold"),
+        tk.Label(body,text="Activity Log",font=("Segoe UI",10,"bold"),
                  fg="#F5F7FA",bg=LIGHT).pack(anchor="w")
-        self.log_w=scrolledtext.ScrolledText(body,font=("Consolas",8),
+        self.log_w=scrolledtext.ScrolledText(body,font=("Consolas",9),
                     bg=LOG_BG,fg=LOG_FG,relief="flat",wrap="word")
         self.log_w.pack(fill="both",expand=True)
         for tag,clr in [("info","#90CDF4"),("success","#68D391"),
@@ -434,13 +494,19 @@ class App:
             self.log_w.tag_config(tag,foreground=clr)
 
     def _copyright_bar(self):
+        # Keep a single footer if the UI is rebuilt on the existing root.
+        for child in self.root.winfo_children():
+            if getattr(child, "_tag", None) == "footer":
+                child.destroy()
         bar=tk.Frame(self.root,bg=NAVY,height=26)
         bar.pack(fill="x",side="bottom"); bar.pack_propagate(False)
         bar._tag = "footer"
-        label = tk.Label(bar,text=COPYRIGHT_TEXT,bg=NAVY,fg="#8A93A0",
-                         font=("Calibri",8))
+        self.footer_frame=bar
+        label = tk.Label(bar,text=COPYRIGHT_TEXT,bg=NAVY,fg="#C9D1DC",
+                         font=("Segoe UI",8))
         label.pack(pady=4)
         label._tag = "footer"
+        self.footer_label=label
 
     def _browse(self):
         d=filedialog.askdirectory(title="Select folder with legacy Excel files")
