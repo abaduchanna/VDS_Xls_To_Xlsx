@@ -17,6 +17,7 @@ jobs:
       matrix:
         app:
           - VDS_Xls_To_Xlsx
+          - VDS_Xls_To_Xlsx_Qt
 
     steps:
       - name: Checkout
