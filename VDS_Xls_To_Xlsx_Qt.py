@@ -187,7 +187,7 @@ LOG_COLORS = {
     "success": "#68D391",
     "error": "#FC8181",
     "warning": "#F6E05E",
-    "": "#a8d8ff",
+    "": "#C9D1DC",   # dark theme log_fg default (was legacy #a8d8ff)
 }
 
 # Same log levels, darker shades - readable on the light theme's white log.
@@ -196,7 +196,7 @@ LOG_COLORS_LIGHT = {
     "success": "#2F855A",
     "error": "#C53030",
     "warning": "#B7791F",
-    "": "#16213a",
+    "": "#1E252C",   # light theme log_fg default (was legacy #16213a)
 }
 
 
@@ -302,7 +302,7 @@ class MainWindow(QMainWindow):
         body_layout.addWidget(self._label("Activity Log", bold=True))
         self.log_box = QPlainTextEdit()
         self.log_box.setReadOnly(True)
-        self.log_box.setStyleSheet("background: #10182e; color: #a8d8ff; font-family: Consolas;")
+        self.log_box.setStyleSheet("font-family: Consolas;")  # theme colors set in _apply_theme()
         body_layout.addWidget(self.log_box, 1)
 
         self.header_mgr.add_copyright(self.theme_manager, outer)
