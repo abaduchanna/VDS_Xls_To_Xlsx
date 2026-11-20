@@ -187,7 +187,7 @@ LOG_COLORS = {
     "success": "#68D391",
     "error": "#FC8181",
     "warning": "#F6E05E",
-    "": "#C9D1DC",   # dark theme log_fg default (was legacy #a8d8ff)
+    "": "#C9D1DC",   # dark theme log_fg default (replaces legacy light-blue)
 }
 
 # Same log levels, darker shades - readable on the light theme's white log.
@@ -196,7 +196,7 @@ LOG_COLORS_LIGHT = {
     "success": "#2F855A",
     "error": "#C53030",
     "warning": "#B7791F",
-    "": "#1E252C",   # light theme log_fg default (was legacy #16213a)
+    "": "#1E252C",   # light theme log_fg default (replaces legacy dark navy)
 }
 
 
